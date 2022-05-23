@@ -1,90 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <parent>
+        <groupId>com.tencent.tsf</groupId>
+        <artifactId>spring-cloud-tsf-dependencies</artifactId>
+        <version>1.29.0-Greenwich-RELEASE</version>
+    </parent>
     <groupId>com.redis.gery</groupId>
     <artifactId>redis-gery</artifactId>
-    <version>1.0.0.0</version>
-    <packaging>pom</packaging>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.2.RELEASE</version>
-    </parent>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>redis</name>
+    <description>redis模块</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <mybatis.version>2.0.0</mybatis.version>
-        <mysql.version>8.0.18</mysql.version>
-        <lombok.version>1.18.8</lombok.version>
-        <common.lang3.version>3.9</common.lang3.version>
-        <springboot.version>2.1.2.RELEASE</springboot.version>
-        <dynamic.version>3.5.0</dynamic.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <pagehelper.version>1.4.1</pagehelper.version>
+        <knife4j-micro.version>2.0.0</knife4j-micro.version>
+        <knife4j.version>2.0.2</knife4j.version>
+        <dynamic.version>3.5.0</dynamic.version>
         <alibaba-fastjson.version>1.2.79</alibaba-fastjson.version>
+        <commons-pool2.version>2.10.0</commons-pool2.version>
+        <hutool.version>5.7.18</hutool.version>
+        <tct.version>1.2.0</tct.version>
+        <cos.version>5.6.54</cos.version>
+        <sftp.version>0.1.55</sftp.version>
     </properties>
-    <dependencyManagement>
-        <dependencies>
+    <dependencies>
+        <!--引入TSF启动器 -->
+        <dependency>
+            <groupId>com.tencent.tsf</groupId>
+            <artifactId>spring-cloud-tsf-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.tencent.tsf</groupId>
+                    <artifactId>spring-cloud-tsf-schedule</artifactId>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- mysql依赖包 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.boss</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+
+        <!-- pageHelper 分页 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--springboot 测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <!--Swagger-UI API文档生产工具-->
+        <!--本地与前端联调时可以放开，knife4j的ui界面好用-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.xiaoymin</groupId>-->
+        <!--            <artifactId>knife4j-micro-spring-boot-starter</artifactId>-->
+        <!--            <version>${knife4j-micro.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.xiaoymin</groupId>-->
+        <!--            <artifactId>knife4j-spring-ui</artifactId>-->
+        <!--            <version>${knife4j.version}</version>-->
+        <!--        </dependency>-->
+
+        <!--配置动态数据源-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic.version}</version>
+        </dependency>
+
+        <!-- 整合fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${alibaba-fastjson.version}</version>
+        </dependency>
+
+        <!--整合redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--redis连接池用到-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>${commons-pool2.version}</version>
+        </dependency>
+
+        <!-- sftp文件传输-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${sftp.version}</version>
+
+        </dependency>
+
+        <!--集成rabbitMQ消息队列-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <!--集成腾讯TCT任务调度-->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>tct-spring-boot-starter</artifactId>
+            <version>${tct.version}</version>
+        </dependency>
+
+        <!--腾讯云对象存储-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>${cos.version}</version>
+        </dependency>
+
+        <!--hutool工具-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
+        <!--宁波银行SDK-->
+        <dependency>
+            <groupId>open-cloud-sdk</groupId>
+            <artifactId>openBasicSDK</artifactId>
+            <version>2.0.1209</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <!--必须与 settings.xml 的 id 一致-->
+            <id>persagy2021-boss-maven-snapshot</id>
+            <name>maven-snapshot</name>
+            <url>https://persagy2021-maven.pkg.coding.net/repository/boss/maven-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
 
 
 
-            <!-- pageHelper 分页 -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-core</artifactId>
-                <version>1.7.0</version>
-            </dependency>
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
+    </repositories>
 
-
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-                <version>${dynamic.version}</version>
-            </dependency>
-
-            <!-- 整合fastjson -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${alibaba-fastjson.version}</version>
-            </dependency>
-
-
-            <!--整合redis-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>2.1.15.RELEASE</version>
-            </dependency>
-
-
-
-        </dependencies>
-    </dependencyManagement>
     <pluginRepositories>
         <pluginRepository>
             <id>aliyun-plugin</id>
@@ -98,4 +214,25 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <build>
+        <plugins>
+            <!-- 解决异常：no main manifest attribute, in app.jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>com.boss.strategy.StrategyApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
