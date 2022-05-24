@@ -12,7 +12,8 @@ spring:
   redis: #换集群需要换配置，测试环境为单机
     host: 39.103.191.151
     port: 6379
-    password: persagy@2021
+    password:
+    database: 0
     #超时时间
     timeout: 3600ms
     #jedis连接池

@@ -42,6 +42,7 @@
             </exclusions>
         </dependency>
 
+
         <!-- mysql依赖包 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -115,7 +116,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
         <!--redis连接池用到-->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -158,12 +162,6 @@
             <version>${hutool.version}</version>
         </dependency>
 
-        <!--宁波银行SDK-->
-        <dependency>
-            <groupId>open-cloud-sdk</groupId>
-            <artifactId>openBasicSDK</artifactId>
-            <version>2.0.1209</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
