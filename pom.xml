@@ -27,6 +27,7 @@
         <tct.version>1.2.0</tct.version>
         <cos.version>5.6.54</cos.version>
         <sftp.version>0.1.55</sftp.version>
+
     </properties>
     <dependencies>
         <!--引入TSF启动器 -->
@@ -58,7 +59,7 @@
         <dependency>
             <groupId>com.boss</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!-- pageHelper 分页 -->
@@ -176,6 +177,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.9.1</version>
         </dependency>
 
     </dependencies>

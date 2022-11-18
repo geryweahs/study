@@ -1,4 +1,4 @@
-package com.gery.redis.common.interfaces;
+package com.gery.redis.common.annotation;
 
 import com.gery.redis.common.enums.LimitType;
 
