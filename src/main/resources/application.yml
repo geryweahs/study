@@ -10,10 +10,10 @@ spring:
       max-request-size: 10MB
 
   redis: #换集群需要换配置，测试环境为单机
-    host: 39.103.191.151
+    host: 172.19.0.2
     port: 6379
-    password:
-    database: 0
+    password: iZ6LrKVA!6zqRDMNm4
+    database: 6
     #超时时间
     timeout: 3600ms
     #jedis连接池
@@ -27,8 +27,24 @@ spring:
         max-idle: 9
         # 连接池中的最小空闲连接
         min-idle: 2
-
-
+  rabbitmq:
+    url: amqp://172.19.0.25:5672
+    host: 172.19.0.25
+    port: 5672
+    username: boss-dev
+    password: tXSRJvPtTfgQob1e
+    virtual-host: boss-dev
+    #开启 return机制
+    publisher-returns: true
+    #开启confirm机制
+    publisher-confirms: true
+  #  publisher-confirm-type: correlated  新版本的开启confirm机制
+  #人工确认
+    listener:
+      direct:
+         acknowledge-mode: manual
+      simple:
+          acknowledge-mode: manual
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rm-bp1dzuicg4dy1izu0ro.mysql.rds.aliyuncs.com:3306/redis-grey?useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
@@ -75,6 +91,14 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+boss:
+  properties:
+    #   开启快速失败
+    validatorEnable: false
+    #　 启用aop log
+    aopLogEnable: false
+    #   开启登录拦截器
+    loginInterceptorEnable: false
 
 # PageHelper分页插件
 pagehelper:
