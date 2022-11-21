@@ -37,15 +37,15 @@ public class TestSendProduce {
 
 
             //发送 插件消息
-            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST, messageDto, 2000);
-            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST.getExchange(),
-                    QueueEnum.QUEUE_TEST.getRouteKey(), messageDto, 20000);
+//            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST, messageDto, 20000);
+//            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST.getExchange(),
+//                    QueueEnum.QUEUE_TEST.getRouteKey(), messageDto, 20000);
 
 
-            //发送 ttl 延迟消息
-            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST_02.getExchange(),
-                    QueueEnum.QUEUE_TEST_02.getRouteKey(), messageDto);
-            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST_02, messageDto);
+//            //发送 ttl 延迟消息
+//            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST_02.getExchange(),
+//                    QueueEnum.QUEUE_TEST_02.getRouteKey(), messageDto);
+//            mqSenderService.sendMessage(QueueEnum.QUEUE_TEST_02, messageDto);
         } catch (Throwable e) {
             log.error("推送订单{}事件出现异常：", JSON.toJSONString(messageDto), e);
         }

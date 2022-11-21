@@ -32,7 +32,7 @@ public class MqSenderServiceImpl implements MqSenderService {
     //确认消息到达MQ,根据实际业务场景处理
     final RabbitTemplate.ConfirmCallback confirmCallback = (correlationData, ack, cause) -> {
         log.info("=============SERVICE:::confirmCallBack触发。消息到达MQ broker===========");
-        log.info("correlationDataID:{}", correlationData.getId());
+        log.info("correlationDataID:{}", correlationData);
         log.info("ack:{}", ack);
         log.info("cause:{}", cause);
         if (!ack) {

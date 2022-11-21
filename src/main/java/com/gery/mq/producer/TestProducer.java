@@ -8,6 +8,7 @@ import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.postprocessor.MessagePostProcessorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,9 @@ public class TestProducer {
             rabbitTemplate.convertAndSend(QueueEnum.QUEUE_TEST.getExchange(),
                     QueueEnum.QUEUE_TEST.getRouteKey(), JSON.toJSONString("dto").getBytes(StandardCharsets.UTF_8), message -> {
                         // 给消息设置延迟毫秒值
-                        message.getMessageProperties().setDelay(20000);
+                        MessageProperties messageProperties = message.getMessageProperties();
+                        messageProperties.setHeader("x-delay",20000);
+                      //  messageProperties.setDelay(20000);
                         return message;
                     });
 

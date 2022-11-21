@@ -73,7 +73,7 @@ public class RabbitMqConfiguration {
     @Bean
     public Queue test02Queue() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("x-message-ttl", 20000);//队列中所有消息5秒后过期
+        map.put("x-message-ttl", 20000);//队列中所有消息20秒后过期
         map.put("x-dead-letter-exchange", QueueEnum.QUEUE_TEST_03.getExchange());//过期后进入死信队列
         return new Queue(QueueEnum.QUEUE_TEST_02.getQueue(), true, false, false, map);
     }

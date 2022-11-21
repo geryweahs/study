@@ -21,8 +21,6 @@ import java.util.Objects;
 @Slf4j
 @Component
 public class Test02Consumer {
-    @Resource
-    private RedisTemplate redisTemplate;
 
     @RabbitHandler
     @RabbitListener(queues = "test.three.ttl.queue")
