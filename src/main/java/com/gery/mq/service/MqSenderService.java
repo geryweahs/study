@@ -3,8 +3,6 @@ package com.gery.mq.service;
 import com.gery.mq.enums.QueueEnum;
 import com.gery.mq.model.BaseMessage;
 import com.gery.mq.model.dto.TestMessageDto;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessagePostProcessor;
 
 /**
  * @Description: MqSenderService

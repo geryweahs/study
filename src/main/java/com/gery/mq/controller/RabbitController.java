@@ -1,22 +1,17 @@
 package com.gery.mq.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.gery.mq.model.Req.NumberReq;
 import com.gery.mq.producer.Test01Producer;
 import com.gery.mq.producer.Test02Producer;
 import com.gery.mq.producer.TestProducer;
 import com.gery.mq.producer.TestSendProduce;
-import com.gery.mq.service.MqSenderService;
-import com.gery.redis.listener.OrderDelayedListener;
-import com.gery.redis.listener.TestListener;
-import com.gery.redis.model.OrderInfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.TimeUnit;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Description: RabbitController

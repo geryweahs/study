@@ -2,10 +2,8 @@ package com.gery.mq.producer;
 
 import com.alibaba.fastjson.JSON;
 import com.gery.mq.enums.QueueEnum;
-import com.gery.mq.service.MqSenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

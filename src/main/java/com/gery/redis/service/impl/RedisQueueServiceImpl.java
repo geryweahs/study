@@ -1,18 +1,14 @@
 package com.gery.redis.service.impl;
 
 import com.gery.redis.listener.RedissonListener;
-import com.gery.redis.model.OrderInfo;
 import com.gery.redis.service.RedisQueueService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBlockingDeque;
-import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**

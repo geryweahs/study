@@ -1,20 +1,17 @@
 package com.gery.redis.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.boss.common.result.BossResponse;
-import com.gery.redis.common.enums.LimitType;
 import com.gery.redis.common.annotation.RateLimiter;
+import com.gery.redis.common.enums.LimitType;
 import com.gery.redis.listener.OrderDelayedListener;
 import com.gery.redis.listener.TestListener;
 import com.gery.redis.model.OrderInfo;
 import com.gery.redis.model.RedisTestReq;
-import com.gery.redis.service.RedisQueueService;
 import com.gery.redis.service.RedisService;
 import com.gery.redis.service.impl.RedisQueueServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.time.DateUtils;
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;
@@ -23,14 +20,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static com.gery.redis.common.enums.RedisEnum.Exception_01;
 
 
 /**
@@ -55,14 +49,14 @@ public class RedisController {
     @ApiOperation(value = "IP限流接口", tags = "redis信息接口")
     @PostMapping(value = "/ipLimit")
     @RateLimiter(time = 60, count = 3, limitType = LimitType.IP)
-    public BossResponse limitIpTest(@RequestBody RedisTestReq redisTestReq) {
-        return BossResponse.error(Exception_01);
+    public String limitIpTest(@RequestBody RedisTestReq redisTestReq) {
+        return "";
     }
 
     @ApiOperation(value = "全局限流接口", tags = "redis信息接口")
     @PostMapping(value = "/allLimit")
     @RateLimiter(time = 60, count = 3, limitType = LimitType.DEFAULT)
-    public BossResponse limitAllTest(@RequestBody RedisTestReq redisTest) {
+    public String limitAllTest(@RequestBody RedisTestReq redisTest) {
         return redisService.limitAllTest(redisTest);
     }
 

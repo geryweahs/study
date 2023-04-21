@@ -1,6 +1,5 @@
 package com.gery.redis.service;
 
-import com.boss.common.result.BossResponse;
 import com.gery.redis.model.RedisTestReq;
 
 /**
@@ -9,7 +8,7 @@ import com.gery.redis.model.RedisTestReq;
  * @Date: 2022/5/23 18:40
  */
 public interface RedisService {
-    BossResponse limitIpTest(RedisTestReq redisTestReq);
+    String limitIpTest(RedisTestReq redisTestReq);
 
-    BossResponse limitAllTest(RedisTestReq redisTest);
+    String limitAllTest(RedisTestReq redisTest);
 }

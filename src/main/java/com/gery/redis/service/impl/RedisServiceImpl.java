@@ -1,6 +1,5 @@
 package com.gery.redis.service.impl;
 
-import com.boss.common.result.BossResponse;
 import com.gery.redis.model.RedisTestReq;
 import com.gery.redis.service.RedisService;
 import org.springframework.stereotype.Service;
@@ -13,12 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RedisServiceImpl implements RedisService {
     @Override
-    public BossResponse limitIpTest(RedisTestReq redisTestReq) {
+    public String limitIpTest(RedisTestReq redisTestReq) {
         return null;
     }
 
     @Override
-    public BossResponse limitAllTest(RedisTestReq redisTest) {
+    public String limitAllTest(RedisTestReq redisTest) {
         return null;
     }
 }
