@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Author: YaoWenHua
  * @Date: 2022/5/23 10:24
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
 @MapperScan(value = {"com.gery.*.mapper"})
 @Slf4j
 public class RedisGreyApplication {

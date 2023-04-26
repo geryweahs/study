@@ -1,6 +1,8 @@
 package com.gery.activiti.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.gery.activiti.model.req.ActivitiReq;
+import com.gery.common.response.BossResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +50,7 @@ public class ActivitiController {
      * 判断指定流程是否部署： @param flowCode 流程代码 @return true，部署、false 未部署
      */
     public boolean isDeployment(String flowCode) {
-        //查询已经部署的流程
+        //查询已经部署的流程  latestVersion()：查询最新版本的流程  orderByProcessDefinitionKey()：按照流程定义的key进行排序 asc()：升序
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().latestVersion().orderByProcessDefinitionKey().asc();
         List<ProcessDefinition> list = processDefinitionQuery.list();
         long count = list.stream().filter(s -> s.getKey().equals(flowCode)).count();
@@ -57,18 +59,23 @@ public class ActivitiController {
 
     @ApiOperation(value = "启动流程", tags = "工作流相关")
     @PostMapping(value = "/startFlow")
-    public String startFlow() throws Exception {
+    public BossResponse startFlow() throws Exception {
         log.info("开始启动流程");
         Map<String, Object> vars = new HashMap<>();
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("key1", "value1");
+        dataMap.put("key2", "value2");
+        vars.put("data", JSON.toJSONString(dataMap));
         // 调用 startTestFlow 方法启动流程
-        String startTestFlow = startTestFlow("leave", UUID.randomUUID().toString(), "测试", vars, null);
-        log.info("流程启动成功，流程实例id为：{}", startTestFlow);
-        return startTestFlow;
+        BossResponse response = startTestFlow("leave", UUID.randomUUID().toString(), "测试", vars, null);
+        log.info("流程启动成功，流程实例id为：{}", response);
+        return response;
     }
 
     @ApiOperation(value = "部署工作流", tags = "工作流相关")
     @PostMapping(value = "/createActiviti")
-    public void createActiviti(@RequestBody ActivitiReq activitiReq) {
+    public BossResponse createActiviti(@RequestBody ActivitiReq activitiReq) {
+        System.out.println("开始部署");
         // 部署流程
         Deployment deployment = repositoryService.createDeployment()
                 // 设置名称
@@ -77,12 +84,14 @@ public class ActivitiController {
                 .addClasspathResource("processes/" + activitiReq.getName() + ".bpmn20.xml").deploy();
         System.out.println("流程部署id：" + deployment.getId());
         System.out.println("流程部署名称：" + deployment.getName());
+        return BossResponse.success("部署成功，流程部署id: " + deployment.getId());
     }
 
 
     @ApiOperation(value = "部门审批", tags = "工作流相关")
     @PostMapping(value = "/approval")
-    public void approval(@RequestBody ActivitiReq activitiReq) {
+    public BossResponse approval(@RequestBody ActivitiReq activitiReq) {
+        // 获取流程实例id
         String flowInstanceId = activitiReq.getFlowInstanceId();
         String taskAssignee = activitiReq.getTaskAssignee();
         // 查询指定流程实例、指定任务处理人的任务
@@ -96,9 +105,10 @@ public class ActivitiController {
         }
         // 完成任务
         taskService.complete(task.getId(), vars);
+        return BossResponse.success("审批完成");
     }
 
-    public String startTestFlow(String flowCode, String businessKey, String title, Map<String, Object> vars, ActivitiEventListener listener) throws Exception {
+    public BossResponse startTestFlow(String flowCode, String businessKey, String title, Map<String, Object> vars, ActivitiEventListener listener) throws Exception {
         // 判断流程是否已部署
         if (!isDeployment(flowCode)) {
             throw new Exception("启动流程，该流程未部署！");
@@ -116,10 +126,10 @@ public class ActivitiController {
             runtimeService.addEventListener(listener);
         }
         // 启动流程
-       // ProcessInstance procIns = runtimeService.startProcessInstanceByKey(flowCode, businessKey, vars);
-       // ProcessInstance processInstance = runtimeService.startProcessInstanceById("leave:1:b3303073-d4f1-11ed-9655-508492a1dbfa");
-      ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave");
-        return processInstance.getId();
+        // ProcessInstance procIns = runtimeService.startProcessInstanceByKey(flowCode, businessKey, vars);
+        // ProcessInstance processInstance = runtimeService.startProcessInstanceById("leave:1:b3303073-d4f1-11ed-9655-508492a1dbfa");
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", vars);
+        return BossResponse.success("流程启动成功,流程实例id: " + processInstance.getProcessInstanceId());
     }
 
 }
