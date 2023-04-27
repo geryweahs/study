@@ -1,6 +1,8 @@
 package com.gery.activiti.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.gery.activiti.common.constant.ActivitiConstant;
+import com.gery.activiti.model.domain.FlowEntity;
 import com.gery.activiti.model.req.ActivitiReq;
 import com.gery.common.response.BossResponse;
 import io.swagger.annotations.Api;
@@ -10,7 +12,6 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -62,13 +63,12 @@ public class ActivitiController {
     public BossResponse startFlow() throws Exception {
         log.info("开始启动流程");
         Map<String, Object> vars = new HashMap<>();
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("key1", "value1");
-        dataMap.put("key2", "value2");
-        vars.put("data", JSON.toJSONString(dataMap));
+        FlowEntity flowEntity = new FlowEntity();
+        flowEntity.setBusinessId(UUID.randomUUID().toString());
+        vars.put(ActivitiConstant.DATA, JSON.toJSONString(flowEntity));
         // 调用 startTestFlow 方法启动流程
-        BossResponse response = startTestFlow("leave", UUID.randomUUID().toString(), "测试", vars, null);
-        log.info("流程启动成功，流程实例id为：{}", response);
+        BossResponse response = startTestFlow("leave", "测试", vars);
+        log.info("流程启动成功，流程实例id为：{}", response.getData());
         return response;
     }
 
@@ -98,7 +98,7 @@ public class ActivitiController {
         Task task = taskService.createTaskQuery().processInstanceId(flowInstanceId).taskAssignee(activitiReq.getTaskAssignee()).singleResult();
         // 设置流程变量，将审批标识设置为 1
         Map<String, Object> vars = new HashMap<>();
-        vars.put("approvalFlag", 1);
+        vars.put("approvalFlag", activitiReq.getApprovalFlag());
         if (task == null) {
             log.error("act error: taskService.createTaskQuery().processInstanceId(flowInstanceId).taskAssignee(userId).singleResult() is null,processInstanceId is :{},userId is:{}", flowInstanceId, taskAssignee);
             throw new RuntimeException("completeCustomerTask task is null,processInstanceId is:" + flowInstanceId + " userId is:" + taskAssignee);
@@ -108,7 +108,7 @@ public class ActivitiController {
         return BossResponse.success("审批完成");
     }
 
-    public BossResponse startTestFlow(String flowCode, String businessKey, String title, Map<String, Object> vars, ActivitiEventListener listener) throws Exception {
+    public BossResponse startTestFlow(String flowCode, String title, Map<String, Object> vars) throws Exception {
         // 判断流程是否已部署
         if (!isDeployment(flowCode)) {
             throw new Exception("启动流程，该流程未部署！");
@@ -121,15 +121,12 @@ public class ActivitiController {
         if (StringUtils.isNotBlank(title)) {
             vars.put("title", title);
         }
-        // 如果监听器不为空，则添加监听器
-        if (null != listener) {
-            runtimeService.addEventListener(listener);
-        }
         // 启动流程
         // ProcessInstance procIns = runtimeService.startProcessInstanceByKey(flowCode, businessKey, vars);
         // ProcessInstance processInstance = runtimeService.startProcessInstanceById("leave:1:b3303073-d4f1-11ed-9655-508492a1dbfa");
+
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", vars);
-        return BossResponse.success("流程启动成功,流程实例id: " + processInstance.getProcessInstanceId());
+        return BossResponse.success(processInstance.getProcessInstanceId());
     }
 
 }

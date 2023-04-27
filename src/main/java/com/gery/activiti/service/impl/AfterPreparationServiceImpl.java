@@ -1,11 +1,15 @@
 package com.gery.activiti.service.impl;
 
+import com.gery.activiti.model.domain.FlowEntity;
 import org.activiti.engine.delegate.DelegateExecution;
 
 public class AfterPreparationServiceImpl extends CommonBusinessService {
     @Override
-    public void execute(DelegateExecution delegateExecution) {
-        Object data = delegateExecution.getVariable("data");
-        System.out.println("这是后置方法:"+data);
+    protected void doService(FlowEntity entity, DelegateExecution execution) {
+        System.out.println("后置方法");
+
+        execution.setVariable("resultFlag",1);
     }
+
+
 }

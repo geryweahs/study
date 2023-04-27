@@ -1,14 +1,12 @@
 package com.gery.activiti.service.impl.listener;
 
 import com.alibaba.fastjson.JSON;
+import com.gery.activiti.common.constant.ActivitiConstant;
+import com.gery.activiti.model.domain.FlowEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateTask;
-import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.TaskListener;
-import org.activiti.engine.task.Task;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 
 @Slf4j
@@ -16,13 +14,13 @@ import java.util.Map;
 public class NewTaskListener extends CommonListenerService implements TaskListener {
     @Override
     public void notify(DelegateTask delegateTask) {
+        String data = (String) delegateTask.getVariable(ActivitiConstant.DATA);
         String flowName = delegateTask.getEventName();
         if (log.isInfoEnabled()) {
-            log.info("{}节点的参数：{}", flowName, delegateTask.getVariables());
+            log.info("{}节点的参数：{}", flowName, data);
         }
-        String data = (String) delegateTask.getVariable("data");
-        Map map = JSON.parseObject(data, Map.class);
-        map.put("key5", "value5");
-        addFlowParameter(delegateTask, "data", JSON.toJSONString(map));
+        FlowEntity flowEntity = JSON.parseObject(data, FlowEntity.class);
+        flowEntity.getListenerList().add(flowName);
+        addFlowParameter(delegateTask, ActivitiConstant.DATA, JSON.toJSONString(flowEntity));
     }
 }

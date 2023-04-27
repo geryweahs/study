@@ -10,4 +10,7 @@ public class ActivitiReq {
     private String flowInstanceId;
 
     private String taskAssignee;
+
+
+    private Integer approvalFlag;
 }

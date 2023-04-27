@@ -1,5 +1,6 @@
 package com.gery.activiti.service.impl;
 
+import com.gery.activiti.model.domain.FlowEntity;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,9 @@ public class CallBackServiceImpl extends CommonBusinessService {
 
 
     @Override
-    public void execute(DelegateExecution delegateExecution) {
-        System.out.println("这是回调方法");
+    protected void doService(FlowEntity entity, DelegateExecution execution) {
+        System.out.println("回调方法");
     }
+
+
 }

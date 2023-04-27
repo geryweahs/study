@@ -1,11 +1,15 @@
 package com.gery.activiti.service.impl;
 
+import com.gery.activiti.model.domain.FlowEntity;
 import org.activiti.engine.delegate.DelegateExecution;
 
-public class FailProcessServiceImpl extends  CommonBusinessService{
+public class FailProcessServiceImpl extends CommonBusinessService {
+
 
     @Override
-    public void execute(DelegateExecution delegateExecution) {
-        System.out.println("这是失败方法");
+    protected void doService(FlowEntity entity, DelegateExecution execution) {
+        System.out.println("失败方法");
     }
+
+
 }
