@@ -8,19 +8,19 @@ import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
 public abstract class BaseComponentService {
 
-
+    @Autowired
+    protected RuntimeService runtimeService;
     protected void addFlowParameter(DelegateExecution execution, String key, Object value) {
         execution.setVariable(key, value);
     }
 
-    protected void addFlowParameter(DelegateTask delegateTask, String key, Object value) {
-        delegateTask.setVariable(key, value);
-    }
+
 
     protected String getProcessVariables(RuntimeService runtimeService, String flowInstanceId) {
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
