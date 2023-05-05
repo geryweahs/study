@@ -14,6 +14,8 @@ public class FlowEntity {
 
     private String businessId;
 
+    private String approvalId;
+
 
     private String flowInstanceId;
 

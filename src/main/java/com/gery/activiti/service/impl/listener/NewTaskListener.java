@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class NewTaskListener extends CommonListenerService implements TaskListener {
+
     @Override
     public void notify(DelegateTask delegateTask) {
+        init();
+        delegateTask.setAssignee((String) redisTemplate.opsForValue().get(ActivitiConstant.KEY));
         String data = (String) delegateTask.getVariable(ActivitiConstant.DATA);
         String flowName = delegateTask.getEventName();
         if (log.isInfoEnabled()) {

@@ -8,7 +8,6 @@ import com.gery.common.response.BossResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -41,8 +40,6 @@ public class ActivitiController {
     @Autowired
     private RuntimeService runtimeService;
 
-    @Autowired
-    private ProcessEngine processEngine;
 
     @Autowired
     private TaskService taskService;
@@ -60,11 +57,12 @@ public class ActivitiController {
 
     @ApiOperation(value = "启动流程", tags = "工作流相关")
     @PostMapping(value = "/startFlow")
-    public BossResponse startFlow() throws Exception {
+    public BossResponse startFlow(@RequestBody ActivitiReq activitiReq) throws Exception {
         log.info("开始启动流程");
         Map<String, Object> vars = new HashMap<>();
         FlowEntity flowEntity = new FlowEntity();
         flowEntity.setBusinessId(UUID.randomUUID().toString());
+        flowEntity.setApprovalId(activitiReq.getTaskAssignee());
         vars.put(ActivitiConstant.DATA, JSON.toJSONString(flowEntity));
         // 调用 startTestFlow 方法启动流程
         BossResponse response = startTestFlow("leave", "测试", vars);

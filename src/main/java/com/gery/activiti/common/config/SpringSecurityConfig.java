@@ -1,4 +1,4 @@
-package com.gery.activiti.common;
+package com.gery.activiti.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
