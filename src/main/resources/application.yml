@@ -1,1 +1,115 @@
+server:
+  port: 10060
+
+spring:
+  application:
+    name: redis-grey
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  redis: #换集群需要换配置，测试环境为单机
+    host: 172.19.0.2
+    port: 6379
+    password: iZ6LrKVA!6zqRDMNm4
+    database: 6
+    #超时时间
+    timeout: 3600ms
+    #jedis连接池
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 9
+        # 连接池中的最小空闲连接
+        min-idle: 2
+  rabbitmq:
+    url: amqp://172.19.0.25:5672
+    host: 172.19.0.25
+    port: 5672
+    username: boss-dev
+    password: tXSRJvPtTfgQob1e
+    virtual-host: boss-dev
+    #开启 return机制
+    publisher-returns: true
+    #开启confirm机制
+    publisher-confirms: true
+    #  publisher-confirm-type: correlated  新版本的开启confirm机制
+    #人工确认
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
+  datasource:
+    #需要优化连接池配置，满足线上需要
+    hikari:
+      # 连接池最大连接数，默认是 10
+      maximum-pool-size: 10
+      # 链接超时时间，默认 30000(30 秒)
+      connection-timeout: 60000
+      # 空闲连接存活最大时间，默认 600000(10 分钟)
+      idle-timeout: 60000
+      # 连接将被测试活动的最大时间量
+      validation-timeout: 3000
+      # 此属性控制池中连接的最长生命周期，值 0 表示无限生命周期，默认 1800000(30 分钟)
+      max-lifetime: 60000
+      # 连接到数据库时等待的最长时间(秒)
+      login-timeout: 5
+      # 池中维护的最小空闲连接数
+      minimum-idle: 10
+    dynamic:
+      primary: order
+      datasource:
+        order:
+          url: jdbc:mysql://172.19.0.13:3306/boss-order-feature?characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: yaowenhua_boss_dev
+          password: 2^YbZuu5
+          druid:
+            initial-size: 6
+
+  activiti:
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
+    check-process-definitions: false
+
+
+
+
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mapper/strategy/*.xml
+  global-config:
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+  configuration:
+    #配置数据库下划线和java驼峰属性映射
+    map-underscore-to-camel-case: true
+    # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: true
+  params: count=countSql
+
+swagger:
+  enable: true
+
+
+
+
+
+
+
+
 

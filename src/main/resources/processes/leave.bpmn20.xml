@@ -37,7 +37,7 @@
     </sequenceFlow>
     <sequenceFlow id="sid-92187ede-5a4c-4fc7-81ee-37585e4dbfd3" sourceRef="sid-61419aa8-0f33-4787-b9f6-87ae78a791f9" targetRef="sid-6521d6be-ea67-4837-b546-eb8401c732cd"/>
     <sequenceFlow id="sid-65af055e-8673-4567-a7c8-f0065cf55f56" sourceRef="sid-ff692f50-4e1d-4a03-aa9e-c567f2bea2bb" targetRef="sid-6521d6be-ea67-4837-b546-eb8401c732cd"/>
-    <serviceTask id="sid-d321f717-44b0-4f21-9267-8bdd956f64fe" name="请假数组组装后置" activiti:exclusive="true" activiti:delegateExpression="${afterPreparationServiceImpl}"/>
+    <serviceTask id="sid-d321f717-44b0-4f21-9267-8bdd956f64fe" name="请假数组组装后置" activiti:exclusive="true" activiti:class="com.gery.activiti.service.impl.AfterPreparationServiceImpl"/>
     <sequenceFlow id="sid-5b09705b-cdd7-43a4-bbc7-ef478e799c80" sourceRef="sid-408985c9-a941-456e-a208-8078b5d44293" targetRef="sid-d321f717-44b0-4f21-9267-8bdd956f64fe"/>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_leave">
