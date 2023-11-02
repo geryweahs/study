@@ -3,7 +3,6 @@ package com.gery.collection.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.redisson.client.protocol.ScoredEntry;
 
 import java.io.Serializable;
 import java.util.List;

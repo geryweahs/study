@@ -2,7 +2,6 @@ package com.gery.collection.controller.map;
 
 import com.gery.collection.model.User;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

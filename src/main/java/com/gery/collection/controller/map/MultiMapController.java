@@ -2,21 +2,13 @@ package com.gery.collection.controller.map;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multiset;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.TreeMultimap;
-import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,9 +20,17 @@ import java.util.Set;
  * @Version 1.0
  **/
 public class MultiMapController {
-    public static void main(String[] args) {
 
-        listMap();
+
+    public static void main(String[] args) {
+        SetMultimap<String, String> setMultimap = HashMultimap.create();
+        setMultimap.put("2","3");
+        setMultimap.put("2","3");
+        setMultimap.put("2","3");
+        Set<String> strings = setMultimap.get("2");
+        System.out.println(strings);
+
+        // listMap();
         //  setMap();
 //        SetMultimap<String, String> setMultimap = HashMultimap.create();
 //        Set<String> strings = setMultimap.get("2");

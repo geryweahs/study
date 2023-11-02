@@ -6,10 +6,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
-import org.apache.commons.collections4.multiset.HashMultiSet;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**

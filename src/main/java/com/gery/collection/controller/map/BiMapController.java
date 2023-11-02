@@ -1,6 +1,5 @@
 package com.gery.collection.controller.map;
 
-import com.gery.collection.model.User;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 

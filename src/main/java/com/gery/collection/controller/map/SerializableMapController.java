@@ -1,7 +1,6 @@
 package com.gery.collection.controller.map;
 
 import com.gery.collection.model.User;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
